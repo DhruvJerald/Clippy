@@ -61,4 +61,4 @@ The bat file installs dependencies on first run and starts the server and opens 
 1. Run the server on your PC
 2. Open a terminal and run `ipconfig` 
 3. Find the **IPv4 address** — example `192.XXX.X.XX`
-4. On your phone using the same Wi-Fi, open `http://192.168.1.10:3000`
+4. On your phone using the same Wi-Fi, open `http://192.XXX.X.XX:3000`
