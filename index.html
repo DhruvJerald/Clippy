@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clippy</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📎</text></svg>">
+<style>
+  :root {
+    --ground: #df7042;
+    --paper: #f7f3e9;
+    --ink: #20201e;
+    --muted: #bb9a68;
+    --accent: #11ff95;
+    --line: 2px solid var(--ink);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: 30px 16px;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Segoe UI", Arial, sans-serif;
+  }
+
+  .app-shell {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: clamp(20px, 4vw, 38px);
+    background: var(--paper);
+    border: var(--line);
+    box-shadow: 10px 10px 0 rgba(32, 32, 30, 0.80);
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .eyebrow {
+    margin: 0;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+  }
+
+  h1 {
+    margin: 8px 0 0;
+    font-size: clamp(3rem, 9vw, 5rem);
+    line-height: 0.9;
+    letter-spacing: -0.08em;
+    font-weight: 900;
+  }
+
+  .period { color: var(--ground); }
+
+  .subhead {
+    max-width: 340px;
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .connection {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 11px;
+    border: var(--line);
+    background: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    white-space: nowrap;
+  }
+
+  .status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #5d8b4b;
+    display: inline-block;
+  }
+
+  section { margin-top: 28px; }
+
+  .section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 9px;
+    border-bottom: var(--line);
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  textarea {
+    display: block;
+    width: 100%;
+    min-height: 190px;
+    margin-top: 14px;
+    padding: 15px;
+    border: var(--line);
+    border-radius: 0;
+    background: #fff;
+    color: var(--ink);
+    font: 500 0.93rem/1.55 ui-monospace, SFMono-Regular, Consolas, monospace;
+    resize: vertical;
+  }
+
+  textarea:focus,
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible {
+    outline: 3px solid var(--ground);
+    outline-offset: 3px;
+  }
+
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 12px;
+  }
+
+  .button {
+    flex: 1 1 110px;
+    min-height: 45px;
+    padding: 10px 14px;
+    border: var(--line);
+    border-radius: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 900 0.73rem system-ui, sans-serif;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .button-primary { background: var(--accent); }
+  .button-quiet { background: transparent; }
+
+  .button:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 13px 0 0;
+    color: var(--muted);
+    font-size: 0.76rem;
+    font-weight: 700;
+  }
+
+  .message-mark {
+    width: 7px;
+    height: 7px;
+    background: #5d8b4b;
+    border-radius: 50%;
+  }
+
+  .files-block { margin-top: 28px; }
+  .files-block h2 { margin-bottom: 12px; }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 540px) {
+    body { padding: 12px; }
+    .top { align-items: flex-start; flex-direction: column; }
+    .connection { align-self: flex-start; }
+  }
+</style>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="top">
+      <div>
+        <p class="eyebrow">Clipboard</p>
+        <h1>Clippy<span class="period">.</span></h1>
+        
+      </div>
+
+      <div class="connection">
+        <span class="status-dot"></span>
+        <span>Made by Dhruv J</span>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-heading">
+        <h2>Shared Text</h2>
+      </div>
+
+      <label class="visually-hidden" for="box">Shared text</label>
+      <textarea id="box" rows="10" placeholder="Paste or type text to share..."></textarea>
+
+      <div class="toolbar">
+        <button id="send" class="button button-primary">Send</button>
+        <button id="paste" class="button">Paste</button>
+        <button id="copy" class="button">Copy</button>
+        <button id="clear" class="button button-quiet">Clear</button>
+      </div>
+
+      <p class="message">
+        <span class="message-mark"></span>
+        <span id="msg">Ready</span>
+      </p>
+    </section>
+
+    <div class="files-block">
+      <div class="section-heading">
+        <h2>Files</h2>
+      </div>
+      <input type="file" id="picker" multiple style="margin-top:14px;">
+      <ul id="list"></ul>
+    </div>
+  </main>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const socket = io();
+const $ = (id) => document.getElementById(id);
+const box = $("box");
+const msg = $("msg");
+let last;
+
+socket.on("connect", () => ($("conn").textContent = "Connected"));
+socket.on("disconnect", () => ($("conn").textContent = "Disconnected"));
+
+socket.on("state", (s) => {
+    if (s.text !== last) box.value = last = s.text;
+    $("list").innerHTML = "";
+    for (const f of s.files) {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        const del = document.createElement("button");
+        a.href = "/files/" + f.id;
+        a.textContent = f.name;
+        del.textContent = "Delete";
+        del.onclick = () => socket.emit("delete", f.id);
+        li.append(a, " ", del);
+        $("list").append(li);
+    }
+});
+
+function send() {
+    if (!box.value.trim()) return (msg.textContent = "Nothing to send");
+    socket.emit("text", box.value);
+    msg.textContent = "Sent";
+}
+
+$("send").onclick = send;
+$("clear").onclick = () => socket.emit("text", "");
+
+$("copy").onclick = () => {
+    box.select();
+    box.setSelectionRange(0, box.value.length);
+    msg.textContent = document.execCommand("copy") ? "Copied" : "Copy failed";
+};
+
+$("paste").onclick = async () => {
+    try {
+        box.value = await navigator.clipboard.readText();
+    } catch {
+        msg.textContent = "Paste blocked, use Ctrl+V instead";
+    }
+};
+
+box.onkeydown = (e) => {
+    if (e.ctrlKey && e.key === "Enter") {
+        e.preventDefault();
+        send();
+    }
+};
+
+$("picker").onchange = async () => {
+    for (const f of $("picker").files) {
+        await fetch("/upload?name=" + encodeURIComponent(f.name), { method: "POST", body: f });
+    }
+    $("picker").value = "";
+};
+</script>
+</body>
+</html>
