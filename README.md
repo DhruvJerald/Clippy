@@ -1,5 +1,8 @@
 # 📎 Clippy
 
+## DEMO
+
+
 ## What is it?
 Clippy is a Fast, lightweight clipboard sharing webapp to quickly share text or files locally on the same network
 
@@ -38,3 +41,20 @@ Real-time--Socket.IO
 Frontend--HTML + CSS + JS 
 
 Text persistence--JSON file (`data/state.json`) 
+
+## Installation
+ 
+### Requirements
+ 
+ [Node.js](https://nodejs.org) 
+### Windows
+ 
+1. Download the ZIP from the [releases page](../../releases) and unzip it
+2. Double-click `start-clippy.bat`
+The bat file installs dependencies on first run and starts the server and opens your browser automatically
+
+## To open on phone
+1. Run the server on your PC
+2. Open a terminal and run `ipconfig` 
+3. Find the **IPv4 address** — example `192.XXX.X.XX`
+4. On your phone using the same Wi-Fi, open `http://192.168.1.10:3000`
