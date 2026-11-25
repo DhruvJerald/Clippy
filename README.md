@@ -3,6 +3,10 @@
 ## DEMO
 
 
+https://github.com/user-attachments/assets/827d311a-ca95-4c2e-82ca-c1a1721ecac8
+
+
+
 ## What is it?
 Clippy is a Fast, lightweight clipboard sharing webapp to quickly share text or files locally on the same network
 
